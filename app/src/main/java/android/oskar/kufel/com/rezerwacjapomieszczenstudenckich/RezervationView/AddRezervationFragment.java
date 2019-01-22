@@ -1,6 +1,7 @@
-package android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant;
+package android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RezervationView;
 
-
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,29 +10,24 @@ import android.view.ViewGroup;
 
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ListRezervationFragment extends Fragment {
 
-
-    public ListRezervationFragment() {
-        // Required empty public constructor
-    }
-
+public class AddRezervationFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_list_rezervation, container, false);
-
-
+        View view = inflater.inflate(R.layout.fragment_add_rezervation, container, false);
 
 
 
         return view;
     }
 
+
+
+
 }
+
+

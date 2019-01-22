@@ -14,12 +14,16 @@
         <View
             android:id="@+id/view"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_weight="0"
             android:background="@drawable/side_nav_bar" />
 
         <CalendarView
             android:id="@+id/calendar_view_habbit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2" />
@@ -30,8 +34,16 @@
         android:id="@+id/floatingActionButtonInfoCalendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="bottom|left"
         android:clickable="true"
         android:src="@android:drawable/ic_menu_info_details" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonAddEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_add" />
 
 </FrameLayout>

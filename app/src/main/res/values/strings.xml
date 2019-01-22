@@ -23,6 +23,18 @@
     <string name="nav_student_event">Wydarzenia</string>
     <string name="nav_student_personalyty">Moje dane</string>
     <string name="nav_student_logout">Wyloguj</string>
+    <string name="menu_rezervation_detal">Szczegółowe informacje</string>
+    <string name="username_hint">Urzytkownik</string>
+    <string name="number_room_hint">Numer pokoju</string>
+    <string name="email_hint">Adres e-mail</string>
+    <string name="telephon_hint">Numer Telefonu </string>
+    <string name="regestriger_button_string"> Zarejestruj </string>
+    <string name="clean_button_string"> Wyczyść </string>
+    <string name="select_type_acount">Wybierz typ konta </string>
+    <string name="select_type_rezervation">Wybierz typ rezerwacji </string>
+    <string name="sala_tv">Sala tv </string>
+    <string name="wash_maschin">Pralnia</string>
+    <string name="hint_choose_washhouse">Wpisz pralnie ...</string>
 
 
     <string name="action_add_favourite">Add to Favourites</string>
@@ -34,4 +46,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="question_foregin_password">Zapomniałeś hasło ? Odzyskaj je.</string>
+    <string name="text_view_choose_type_account">Wybierz typ  konta :</string>
+    <string name="hint_get_number">Podaj swój numer </string>
+
 </resources>

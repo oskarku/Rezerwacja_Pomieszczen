@@ -8,14 +8,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.AccountDetale.AccountDetalFragment;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant.CalendarFragment;
-import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant.ListRezervationFragment;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.keep.KeepKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -142,7 +139,7 @@ public class AccountActivity extends AppCompatActivity
 
 
                                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                                ft.replace(R.id.frame_layout_account, new ListRezervationFragment());
+                                ft.replace(R.id.frame_layout_account, new CalendarFragment());
                                 ft.commit();
 
 
@@ -172,11 +169,13 @@ public class AccountActivity extends AppCompatActivity
 
 
 
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.popBackStack(KeepKey.KEY_FRAGMENT_CALENDAR, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-
-
+                    getSupportFragmentManager().popBackStack(nameFirstFragmentonBackStack, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.frame_layout_account, new CalendarFragment());
+                    ft.addToBackStack(KeepKey.KEY_FRAGMENT_CALENDAR);
                     ft.commit();
 
 

@@ -1,28 +1,124 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/album_cover_height">
+    android:layout_height="@dimen/album_cover_height"
+
+
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
+        android:id="@+id/card_view_item_rez"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_margin="@dimen/card_margin"
+
+
         android:elevation="3dp"
         card_view:cardCornerRadius="@dimen/card_album_radius">
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/background_oneposition_rezerwation"
 
+            >
+
+            <TextView
+                android:id="@+id/textViewDateRezerwation"
+                android:layout_width="87dp"
+                android:layout_height="88dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/calendar_page_empty"
+                android:gravity="center|bottom"
+                android:text="1"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="40sp"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewMonthRezerwation"
+                android:layout_width="85dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="40dp"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/holo_red_light"
+                android:text="Styczeń"
+                android:textSize="20sp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="@+id/textViewDateRezerwation"
+                card_view:layout_constraintStart_toStartOf="@+id/textViewDateRezerwation"
+                card_view:layout_constraintTop_toBottomOf="@+id/textViewDateRezerwation"
+                card_view:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textViewTitleRezerwation"
+                android:layout_width="191dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="113dp"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/holo_blue_dark"
+                android:text="Pralnia 2N"
+                android:textSize="25sp"
+                card_view:layout_constraintBottom_toBottomOf="@+id/card_view_item_rez"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.337"
+                card_view:layout_constraintStart_toEndOf="@+id/textViewDateRezerwation"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="0.0" />
 
             <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                card_view:srcCompat="@drawable/baseline_event_black_24dp" />
-        </RelativeLayout>
+                android:id="@+id/imageViewImageTypeRezerwationList"
+                android:layout_width="175dp"
+                android:layout_height="71dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="48dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="@+id/textViewTitleRezerwation"
+                card_view:layout_constraintHorizontal_bias="0.481"
+                card_view:layout_constraintStart_toStartOf="@+id/textViewTitleRezerwation"
+                card_view:layout_constraintTop_toBottomOf="@+id/textViewTitleRezerwation"
+                card_view:layout_constraintVertical_bias="0.0"
+                card_view:srcCompat="@drawable/pralnia_card" />
+
+            <TextView
+                android:id="@+id/textViewRommListRezerwation"
+                android:layout_width="86dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/holo_orange_dark"
+                android:text="218"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="@+id/imageViewImageTypeRezerwationList"
+                card_view:layout_constraintStart_toStartOf="@+id/imageViewImageTypeRezerwationList"
+                card_view:layout_constraintTop_toBottomOf="@+id/imageViewImageTypeRezerwationList"
+                card_view:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/imageViewMenuRezerwation"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="1.0"
+                card_view:layout_constraintStart_toEndOf="@+id/textViewTitleRezerwation"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:srcCompat="@drawable/ic_dots" />
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
 

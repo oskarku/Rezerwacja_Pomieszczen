@@ -8,6 +8,7 @@ import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ComunicationNetw
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ComunicationNetwork.MSG;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ComunicationNetwork.RetroClient;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.api.ApiService;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.keep.KeepKey;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,24 +18,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
 
