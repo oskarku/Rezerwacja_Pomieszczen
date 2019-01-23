@@ -11,5 +11,7 @@ public abstract class KeepKey {
     //Klucze zwiazane z stosami cofniec fragmentow
     public static final String KEY_FRAGMENT_CALENDAR = "CALENDAR_FRAGMENT";
     public static final String KEY_FRAGMENT_GENERALY_ADD_EVENT = "ADD_EVENT_GENRALY_FRAGMENT";
+    public static final String KEY_FRAGMENT_WASHHOUSE_ADD_EVENT = "ADD_EVENT_WASHHOUSE_ADD_EVENT";
+    public static final String KEY_FRAGMENT_OTHER_REZERVATION = "ADD_EVENT_OTHER_REZERVATION";
 
 }

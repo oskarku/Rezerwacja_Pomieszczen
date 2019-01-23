@@ -1,62 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewInhabitant.RezervtionOtherSal" >
+    tools:context=".ViewInhabitant.RezervtionOtherSalFragment">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="639dp" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="16dp" />
+        <Button
+            android:id="@+id/buttonSetHourEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Set time end"
+            app:layout_constraintEnd_toEndOf="@+id/buttonSetStartHour"
+            app:layout_constraintStart_toStartOf="@+id/buttonSetStartHour"
+            app:layout_constraintTop_toBottomOf="@+id/textViewStartHourRezervation" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="77dp" />
+        <TextView
+            android:id="@+id/textViewEndDataRezervation"
+            android:layout_width="65dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:text="set date end"
+            app:layout_constraintEnd_toEndOf="@+id/buttonSetDateEnd"
+            app:layout_constraintStart_toStartOf="@+id/buttonSetDateEnd"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSetDateEnd" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="119dp" />
+        <Button
+            android:id="@+id/buttonSetDataStart"
+            android:layout_width="114dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:text=" set data start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.945"
+            app:layout_constraintStart_toEndOf="@+id/buttonSetStartHour"
+            tools:layout_editor_absoluteY="145dp" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="33dp"
-        tools:layout_editor_absoluteY="283dp" />
+        <TextView
+            android:id="@+id/textViewEndHourRezervation"
+            android:layout_width="81dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="32dp"
+            android:text="set hour end"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewEndDataRezervation"
+            app:layout_constraintEnd_toEndOf="@+id/buttonSetHourEnd"
+            app:layout_constraintStart_toStartOf="@+id/buttonSetHourEnd"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSetHourEnd"
+            app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="203dp"
-        tools:layout_editor_absoluteY="101dp" />
+        <Button
+            android:id="@+id/buttonSetDateEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="set date end"
+            app:layout_constraintEnd_toEndOf="@+id/buttonSetDataStart"
+            app:layout_constraintStart_toStartOf="@+id/buttonSetDataStart"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDataStartRezervation" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="218dp"
-        tools:layout_editor_absoluteY="253dp" />
-</android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/buttonSetStartHour"
+            android:layout_width="114dp"
+            android:layout_height="74dp"
+            android:text="Set Hour Start"
+            tools:layout_editor_absoluteX="44dp"
+            tools:layout_editor_absoluteY="145dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButtonSaveOtherSal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:src="@android:drawable/ic_menu_save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewDataStartRezervation"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_marginTop="12dp"
+            android:text="Set Data start"
+            app:layout_constraintEnd_toEndOf="@+id/buttonSetDataStart"
+            app:layout_constraintHorizontal_bias="0.724"
+            app:layout_constraintStart_toStartOf="@+id/buttonSetDataStart"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSetDataStart" />
+
+        <TextView
+            android:id="@+id/textViewStartHourRezervation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Set Hour Start"
+            app:layout_constraintEnd_toEndOf="@+id/buttonSetStartHour"
+            app:layout_constraintStart_toStartOf="@+id/buttonSetStartHour"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSetStartHour" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/background_oneposition_rezerwation"
+            app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonSaveOtherSal"
+            app:layout_constraintEnd_toEndOf="@+id/textViewEndHourRezervation"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintStart_toStartOf="@+id/textViewEndDataRezervation"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEndDataRezervation" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>

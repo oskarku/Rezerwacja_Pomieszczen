@@ -36,6 +36,7 @@ public class AddFormWashhouseRezervationAdapter extends RecyclerView.Adapter<Add
 
     }
 
+
     @Override
     public int getItemCount() {
         return singelPozitionWsheProgramList.size();

@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 public class AccountActivity extends AppCompatActivity
@@ -171,12 +172,11 @@ public class AccountActivity extends AppCompatActivity
 
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     fragmentManager.popBackStack(KeepKey.KEY_FRAGMENT_CALENDAR, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-                    getSupportFragmentManager().popBackStack(nameFirstFragmentonBackStack, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.frame_layout_account, new CalendarFragment());
+                    ft.add(R.id.frame_layout_account, new CalendarFragment());
                     ft.addToBackStack(KeepKey.KEY_FRAGMENT_CALENDAR);
                     ft.commit();
+
 
 
 
@@ -263,6 +263,8 @@ public class AccountActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 
 }

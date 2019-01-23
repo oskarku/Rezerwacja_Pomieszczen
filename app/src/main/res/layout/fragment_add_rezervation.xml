@@ -10,14 +10,13 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wybierz typ rejestracji"
-        android:textSize="20sp"
-        />
+        android:text="@string/select_type_rezervation"
+        android:textSize="20sp" />
 
     <Spinner
         android:id="@+id/spinner_add_rezervation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="58dp" />
 
     <FrameLayout
         android:id="@+id/frame_layout_add_rezerwation"

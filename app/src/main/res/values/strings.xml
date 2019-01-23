@@ -31,16 +31,39 @@
     <string name="regestriger_button_string"> Zarejestruj </string>
     <string name="clean_button_string"> Wyczyść </string>
     <string name="select_type_acount">Wybierz typ konta </string>
-    <string name="select_type_rezervation">Wybierz typ rezerwacji </string>
+    <string name="select_type_rezervation">"Wybierz jaką sale chcesz zarezerwować "</string>
     <string name="sala_tv">Sala tv </string>
     <string name="wash_maschin">Pralnia</string>
+    <string name="yes">tak</string>
+    <string name="no">nie</string>
+    <string name= "position_delate">Pozycja usunieta</string>
+    <string name="question_about_delate_position_list">Czy chcesz usunąć pozycje z listy?</string>
     <string name="hint_choose_washhouse">Wpisz pralnie ...</string>
+    <string name="describe_using_calendar_fragment">Poniżej kalendarza widzisz liste rezerwacji pomieszczen na dany dzien \n
+        Jest to lista obowiazujaca na twoim pientrze.</string>
+    <string-array name="type_rezerwation">
+        <item>Zarezerwuj Pralnie</item>
+        <item>Zarezerwuj Sale TV</item>
+        <item>Zarezerwuj Sale Gier i  Zabaw</item>
+    </string-array>
+    <string name="sale_tv">SALA TV</string>
+    <string name="sale_game_playing">SALA DO GRANIA W GRY </string>
+    
+    
+    <string name="dos_not_set_hour">Nie ustawiłeś godziny</string>
+    <string name="dos_not_set_wash">Nie ustawiłeś godziny</string>
+    <string name="dos_not_set_program">Nie ustawiłeś godziny</string>
 
 
     <string name="action_add_favourite">Add to Favourites</string>
     <string name="action_play_next">Play Next</string>
     <string name="backdrop_title">LOVE MUSIC</string>
     <string name="backdrop_subtitle">This season top 20 albums</string>
+    <string name="data_picker_title_end_rezervation">Ustaw daate końca rezerwacji</string>
+    <string name="data_picker_title_time_end_rezerwation">Ustaw czas zakonczenia rezerwacji</string>
+    <string name="data_picker_title_time_start_rezerwation">Ustaw czas rozpoczencia rezerwacji</string>
+    <string name="data_picker_title_date_start_rezerwation">Ustaw date rozpoczencia rezerwacji</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

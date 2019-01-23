@@ -16,11 +16,11 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class RezervationSIngelRoom extends  RecyclerView.Adapter<RezervationSIngelRoom.MyViewHolder> {
+public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterRezervationSIngelRoom.MyViewHolder> {
     private Context context;
     private List<SingelRezervation> listRezervation;
 
-    public RezervationSIngelRoom(Context con, List<SingelRezervation> listRez){
+    public AdapterRezervationSIngelRoom(Context con, List<SingelRezervation> listRez){
         this.context = con;
         this.listRezervation= listRez;
     }
@@ -68,7 +68,7 @@ public class RezervationSIngelRoom extends  RecyclerView.Adapter<RezervationSIng
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RezervationSIngelRoom.MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(@NonNull final AdapterRezervationSIngelRoom.MyViewHolder myViewHolder, int position) {
 
         SingelRezervation singelRezervation = listRezervation.get(position);
         myViewHolder.textViewRoomRezervation.setText(singelRezervation.getNumberRoomRezervation());
