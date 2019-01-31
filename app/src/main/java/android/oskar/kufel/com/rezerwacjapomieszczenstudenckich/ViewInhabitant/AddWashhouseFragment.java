@@ -4,15 +4,19 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.R;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RecyclerTouchListener;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.SwipeToDeleteCallback;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +32,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.zip.Inflater;
 
 
 public class AddWashhouseFragment extends Fragment {
@@ -48,19 +53,41 @@ public class AddWashhouseFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_washhouse, container, false);
 
-        buttonAddProgram = view.findViewById(R.id.imageButtonAddProgramFOrm);
-        buttonSetTime = view.findViewById(R.id.buttonSetTimeRezervationWashe);
-        buttonAddRezervation = view.findViewById(R.id.buttonSaveRezervationWashhousePeople);
-        buttonClear = view.findViewById(R.id.buttonCleenRezervation);
-        recyclerView = view.findViewById(R.id.recyclerViewListDaylyRezervation);
-        textViewChoseTime =view.findViewById(R.id.textViewTimeRezervationWashe);
+
+        singelPozitionWsheProgramList = new ArrayList<SingelPozitionWsheProgram>();
+
+        buttonAddProgram = (Button) view.findViewById(R.id.imageButtonAddProgramFOrm);
+        buttonSetTime =  (Button) view.findViewById(R.id.buttonSetTimeRezervationWashe);
+        buttonAddRezervation = (Button) view.findViewById(R.id.buttonSaveRezervationWashhousePeople);
+        buttonClear = (Button) view.findViewById(R.id.buttonCleenRezervation);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewListProgramWash);
+        textViewChoseTime = (TextView) view.findViewById(R.id.textViewTimeRezervationWashe);
+
+        addToRecycrelView();
 
 
-        mAdapter = new AddFormWashhouseRezervationAdapter(singelPozitionWsheProgramList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+        mAdapter = new AddFormWashhouseRezervationAdapter(getContext(), singelPozitionWsheProgramList);
+        setUpRecyclerView();
+
+
+
+
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                SingelPozitionWsheProgram movie = singelPozitionWsheProgramList.get(position);
+                Toast.makeText(getActivity().getApplicationContext(), movie.getTimeWash() + " is selected!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClick(View view, final int position) {
+
+
+
+            }
+        }));
+
         spinnerChoseProgram = view.findViewById(R.id.spinnerListProgram);
         spinnerChoseWash = view.findViewById(R.id.spinnerListMachine);
 
@@ -89,39 +116,7 @@ public class AddWashhouseFragment extends Fragment {
         spinnerChoseProgram.setAdapter(dataAdapterChouseWash);
 
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                SingelPozitionWsheProgram movie = singelPozitionWsheProgramList.get(position);
-                Toast.makeText(getActivity().getApplicationContext(), movie.getTimeWash() + " is selected!", Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onLongClick(View view, final int position) {
-
-                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-                final AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialogBuilder.setMessage(getString(R.string.question_about_delate_position_list));
-                        alertDialogBuilder.setPositiveButton(getString(R.string.yes),
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface arg0, int arg1) {
-                                        singelPozitionWsheProgramList.remove(position);
-                                        Toast.makeText(getActivity(),getString(R.string.position_delate),Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                alertDialogBuilder.setNegativeButton(getString(R.string.no),new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                     alertDialog.dismiss();
-                    }
-                });
-
-                alertDialog.show();
-
-            }
-        }));
 
 
 
@@ -129,7 +124,10 @@ public class AddWashhouseFragment extends Fragment {
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                singelPozitionWsheProgramList.clear();
+                if(!singelPozitionWsheProgramList.isEmpty()) {
+                    singelPozitionWsheProgramList.clear();
+                }
+                mAdapter.notifyDataSetChanged();
                 textViewChoseTime.setText("");
 
 
@@ -141,6 +139,7 @@ public class AddWashhouseFragment extends Fragment {
         buttonAddRezervation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ///TODO implementation saving using api
 
             }
         });
@@ -195,12 +194,16 @@ public class AddWashhouseFragment extends Fragment {
 
                 }
 
-                else {
+                else if ( setHourse!=null   &&  setProgram!=null   && setWash!=null ) {
                     SingelPozitionWsheProgram singel = new SingelPozitionWsheProgram(setWash, setProgram, setHourse);
                     singelPozitionWsheProgramList.add(singel);
+                    mAdapter.notifyItemInserted(singelPozitionWsheProgramList.size()-1);
+
+                    recyclerView.refreshDrawableState();
+                    Toast.makeText(getActivity(),getString(R.string.add_to_list_program_wash),Toast.LENGTH_LONG).show();
                 }
 
-                ///TODO zczytac z m spinera wybrane wartosci a nastepnie dodac do listy
+
 
             }
         });
@@ -210,10 +213,14 @@ public class AddWashhouseFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
+                /*
+                stworzayc tablice z progrmami ktora bedzie aktualizowana z bazy danych
+                 */
                 if (item.equalsIgnoreCase("Szybkie_codzine")){
                     setHourse=setHourse+" +0,5";
                     setProgram=item;
                 }
+                setProgram=item;
             }
 
             @Override
@@ -230,7 +237,7 @@ public class AddWashhouseFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
 
-                setWash= item;
+                setWash=item;
 
 
             }
@@ -246,6 +253,23 @@ public class AddWashhouseFragment extends Fragment {
 
     }
 
+    private void setUpRecyclerView() {
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        ItemTouchHelper itemTouchHelper = new
+                ItemTouchHelper(new SwipeToDeleteCallback(mAdapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+
+
+
+
+    }
+
 
     private void addList(){
         listProgram.add("Ecco");
@@ -254,9 +278,18 @@ public class AddWashhouseFragment extends Fragment {
         listProgram.add("Dla zwierzat");
         listProgram.add("Syntetyk");
 
+
         listMachine.add("Bosch");
         listMachine.add("Mastercook");
 
+
+    }
+
+    private void addToRecycrelView(){
+        SingelPozitionWsheProgram singel = new SingelPozitionWsheProgram("wirpool","cooton","15:00");
+        singelPozitionWsheProgramList.add(singel);
+        singel = new SingelPozitionWsheProgram("bosh","lol","15:00");
+        singelPozitionWsheProgramList.add(singel);
 
     }
 

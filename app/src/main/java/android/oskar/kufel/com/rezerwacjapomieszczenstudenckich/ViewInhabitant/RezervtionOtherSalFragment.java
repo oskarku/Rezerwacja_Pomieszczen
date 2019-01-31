@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -21,8 +22,9 @@ import java.util.Calendar;
 public class RezervtionOtherSalFragment extends Fragment {
 
     private Button buttonSetStartDate, buttonSetStartTime, buttonSetEndDate, buttonSetEdndTime;
-    private TextView textViewStartData, textViewEndData, textViewStartTime, textViewEndTime;
+    private TextView textViewStartData, textViewEndData, textViewStartTime, textViewEndTime ;
     private FloatingActionButton floatingActionButton;
+    private String Title;
 
 
 
@@ -43,6 +45,18 @@ public class RezervtionOtherSalFragment extends Fragment {
         textViewStartData= view.findViewById(R.id.textViewDataStartRezervation);
         textViewEndTime= view.findViewById(R.id.textViewEndHourRezervation);
         textViewStartTime = view.findViewById(R.id.textViewStartHourRezervation);
+
+        Bundle b3 = getArguments();
+        if (b3!=null){
+            Title = b3.getString("tytul");
+
+        }
+
+        Toast toast = Toast.makeText(getActivity().getApplicationContext(), Title, Toast.LENGTH_SHORT);
+        toast.show();
+
+
+
 
 
         return view;
@@ -163,6 +177,8 @@ public class RezervtionOtherSalFragment extends Fragment {
         });
 
 
+
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,4 +189,6 @@ public class RezervtionOtherSalFragment extends Fragment {
 
 
     }
+
+
 }

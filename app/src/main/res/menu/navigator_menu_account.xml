@@ -10,10 +10,18 @@
             android:id="@+id/nav_student_event_menu"
             android:icon="@drawable/baseline_event_black_24dp"
             android:title="@string/nav_student_event" />
+
+        <item
+            android:id="@+id/nav_student_myEvent"
+            android:icon="@drawable/calendar_my_rezervation"
+            android:title="@string/nav_student_my_event"
+            />
         <item
             android:id="@+id/nav_student_personality_date"
             android:icon="@drawable/baseline_perm_identity_black_24dp"
             android:title="@string/nav_student_personalyty" />
+
+
 
         <item
             android:id="@+id/nav_student_logout"

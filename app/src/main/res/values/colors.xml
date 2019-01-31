@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#930007</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="viewBg">#f1f5f8</color>
-    <color name="album_title">#4c4c4c</color>
+    <color name="album_title">#4C4C4C</color>
 
 
-    <color name="primaryColor">#3F51B5</color>
+    <color name="primaryColor">#838ED2</color>
     <color name="primaryLightColor">#75ABE8</color>
     <color name="primaryDarkColor">#002984</color>
-    <color name="secondaryColor">#b71c1c</color>
+    <color name="secondaryColor">#B71C1C</color>
     <color name="secondaryLightColor">#F05545</color>
     <color name="secondaryDarkColor">#7F0000</color>
     <color name="primaryTextColor">#ffffff</color>

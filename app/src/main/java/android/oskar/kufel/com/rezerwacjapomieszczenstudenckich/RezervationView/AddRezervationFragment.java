@@ -1,7 +1,9 @@
 package android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RezervationView;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.AccountActivity;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant.AddWashhouseFragment;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant.CalendarFragment;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant.RezervtionOtherSalFragment;
@@ -30,12 +32,15 @@ public class AddRezervationFragment extends Fragment {
     private String[] categoriesSpinner;
     private Resources resourcesAndroidXML;
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_add_rezervation, container, false);
+        getActivity().setTitle(getString(R.string.title_activity_add_rezerwation).toUpperCase());
 
         resourcesAndroidXML = getResources();
 
@@ -72,6 +77,10 @@ public class AddRezervationFragment extends Fragment {
                 }
 
                 else {
+
+                    AccountActivity ac =(AccountActivity) getActivity();
+
+                    ac.setInformationToabotherFragment(item);
 
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.popBackStack(KeepKey.KEY_FRAGMENT_OTHER_REZERVATION, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -112,6 +121,7 @@ public class AddRezervationFragment extends Fragment {
 
         return view;
     }
+
 
 
 

@@ -7,7 +7,10 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.AccountDetale.AccountDetalFragment;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RezervationView.AddRezervationFragment;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant.CalendarFragment;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant.MyRezervationFragment;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant.RezervtionOtherSalFragment;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.keep.KeepKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,7 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
-public class AccountActivity extends AppCompatActivity
+public class AccountActivity extends AppCompatActivity 
 {
 
     private FrameLayout frameLayout;
@@ -52,7 +55,7 @@ public class AccountActivity extends AppCompatActivity
         frameLayout = (FrameLayout) findViewById(R.id.frame_layout_account);
 
 
-        ///TODO zobaczyć jak odczytac dane
+
 
         accountModelView.checkLoginTypeAcount(pref.getString(KeepKey.KEY_TYPE_ACCOUNT, null));
 
@@ -144,7 +147,22 @@ public class AccountActivity extends AppCompatActivity
                                 ft.commit();
 
 
-                            } else if (id == R.id.nav_student_personality_date) {
+                            }
+
+                            else if( id == R.id.nav_student_myEvent){
+
+
+
+
+                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                ft.replace(R.id.frame_layout_account, new MyRezervationFragment());
+                                ft.commit();
+
+                            }
+
+
+
+                            else if (id == R.id.nav_student_personality_date) {
 
                                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                                 ft.replace(R.id.frame_layout_account, new AccountDetalFragment());
@@ -177,10 +195,6 @@ public class AccountActivity extends AppCompatActivity
                     ft.addToBackStack(KeepKey.KEY_FRAGMENT_CALENDAR);
                     ft.commit();
 
-
-
-
-
                 }
 
             }
@@ -193,6 +207,7 @@ public class AccountActivity extends AppCompatActivity
         final Observer<Boolean> booleanObserverInChef = new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
+
 
             }
         };
@@ -265,6 +280,17 @@ public class AccountActivity extends AppCompatActivity
     }
 
 
+    public void setInformationToabotherFragment(String item) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        RezervtionOtherSalFragment rezervtionOtherSalFragment = new RezervtionOtherSalFragment();
+        Bundle b1 = new Bundle();
+        b1.remove("tytul");
+        b1.putString("tytul", item);
+        rezervtionOtherSalFragment.setArguments(b1);
+        ft.add(R.id.frame_layout_add_rezerwation,rezervtionOtherSalFragment);
+        ft.commit();
 
 
+    }
 }

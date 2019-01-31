@@ -2,9 +2,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <item
-        android:id="@+id/menu_rezervation_detal"
+        android:id="@+id/menu_my_rezervation_inhabit_detal"
         android:orderInCategory="100"
         android:title="@string/menu_rezervation_detal" />
+
+    <item
+        android:id="@+id/menu_my_rezervation_inhabit_change"
+        android:orderInCategory="100"
+        android:title="@string/menu_change_rezerwation" />
 
 
 

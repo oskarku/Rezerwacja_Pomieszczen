@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.AccountActivity;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RezervationView.AdapterRezervationSIngelRoom;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RezervationView.AddRezervationFragment;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RezervationView.SingelRezervation;
@@ -50,6 +51,8 @@ public class CalendarFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+
+        getActivity().setTitle(getString(R.string.title_activity_calendar_rezerwation).toUpperCase());
 
 
         Long currentTime = Calendar.getInstance().getTime().getTime();
@@ -98,7 +101,7 @@ public class CalendarFragment extends Fragment {
 
         singelRezervationList = new ArrayList<SingelRezervation>();
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewListDaylyRezervation);
-        mAdapter = new AdapterRezervationSIngelRoom(getContext(),singelRezervationList);
+        mAdapter = new AdapterRezervationSIngelRoom(getContext(),singelRezervationList, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -114,16 +117,29 @@ public class CalendarFragment extends Fragment {
     public void  addSimpleDate(){
 
         SingelRezervation singelRezervation = new SingelRezervation("Pralnia 2N", "21","Maj","215");
+        singelRezervation.setHoursStart("15:00");
+        singelRezervation.setHoursEnd("23:00");
         singelRezervationList.add(singelRezervation);
         singelRezervation = new SingelRezervation("Pralnia 2N", "20","Czerwiec","215");
+        singelRezervation.setHoursStart("12:00");
+        singelRezervation.setHoursEnd("20:00");
         singelRezervationList.add(singelRezervation);
         singelRezervation = new SingelRezervation("Pralnia 2N", "2","Luty","215");
+        singelRezervation.setHoursStart("15:00");
+        singelRezervation.setHoursEnd("18:00");
         singelRezervationList.add(singelRezervation);
         singelRezervation = new SingelRezervation("Pralnia 1N", "8","Marzec","210");
+        singelRezervation.setHoursStart("12:00");
+        singelRezervation.setHoursEnd("22:00");
         singelRezervationList.add(singelRezervation);
         singelRezervation = new SingelRezervation("Pralnia 4N", "20","Kwiecien","218");
+        singelRezervation.setHoursStart("10:00");
+        singelRezervation.setHoursEnd("20:00");
         singelRezervationList.add(singelRezervation);
         singelRezervation = new SingelRezervation("Pralnia 3N", "20","Czerwiec","215");
+        singelRezervation.setHoursStart("11:00");
+        singelRezervation.setHoursEnd("19:00");
+
         singelRezervationList.add(singelRezervation);
 
     }
