@@ -43,7 +43,7 @@
     <string name="select_type_rezervation">"Wybierz jaką sale chcesz zarezerwować "</string>
     <string name="sala_tv">Sala tv </string>
     <string name="wash_maschin">Pralnia</string>
-    <string name = "add_to_list_program_wash">dodalem do listy pranie </string>
+    <string name="add_to_list_program_wash">dodalem do listy pranie </string>
     <string name="yes">tak</string>
     <string name="no">nie</string>
     <string name="position_delate">Pozycja usunieta</string>
@@ -56,6 +56,13 @@
         <item>Zarezerwuj Sale TV</item>
         <item>Zarezerwuj Sale Gier i  Zabaw</item>
     </string-array>
+
+
+    <string-array name="Choose_type_account">
+        <item>Konto Studenta</item>
+        <item>Konto Portiera</item>
+    </string-array>
+
     <string name="sale_tv">SALA TV</string>
     <string name="sale_game_playing">SALA DO GRANIA W GRY </string>
 
@@ -86,9 +93,9 @@
     <string name="text_view_choose_type_account">Wybierz typ  konta :</string>
     <string name="hint_get_number">Podaj swój numer </string>
     <string name="type_account">Typ konta</string>
-    <string name="number_telephon" >numer telefonu</string>
+    <string name="number_telephon">numer telefonu</string>
     <string name="change_date">Zmień dane</string>
-    <string name="change_number_phone" >Zmień numer telefonu</string>
+    <string name="change_number_phone">Zmień numer telefonu</string>
     <string name="save_date">Zapisz dane</string>
     <string name="give_old_password">Podaj stare hasło</string>
     <string name="want_to_change_password">Chcę zmienić hasło</string>

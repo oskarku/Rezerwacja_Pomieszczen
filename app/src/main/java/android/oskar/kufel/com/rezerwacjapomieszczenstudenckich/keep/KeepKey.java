@@ -14,4 +14,12 @@ public abstract class KeepKey {
     public static final String KEY_FRAGMENT_WASHHOUSE_ADD_EVENT = "ADD_EVENT_WASHHOUSE_ADD_EVENT";
     public static final String KEY_FRAGMENT_OTHER_REZERVATION = "ADD_EVENT_OTHER_REZERVATION";
 
+
+    //Klucze zwiozane z typami konta
+
+    public static  final String KEY_STUDENT = "student";
+    public static  final String KEY_CHEFF = "kierownik";
+    public static  final String KEY_PORTIER = "portier";
+
+
 }

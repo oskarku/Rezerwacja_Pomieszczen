@@ -156,6 +156,10 @@ public class AccountActivity extends AppCompatActivity
 
                                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                                 ft.replace(R.id.frame_layout_account, new MyRezervationFragment());
+                                ft.addToBackStack("nan");
+                                getSupportFragmentManager().popBackStack("nan", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+
                                 ft.commit();
 
                             }
@@ -166,6 +170,10 @@ public class AccountActivity extends AppCompatActivity
 
                                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                                 ft.replace(R.id.frame_layout_account, new AccountDetalFragment());
+                                ft.addToBackStack("detal_acount");
+                                getSupportFragmentManager().popBackStack("detal_acount", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+
                                 ft.commit();
 
 
@@ -173,6 +181,7 @@ public class AccountActivity extends AppCompatActivity
 
                                 pref.edit().clear().commit();
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
                                 startActivity(intent);
 
 
