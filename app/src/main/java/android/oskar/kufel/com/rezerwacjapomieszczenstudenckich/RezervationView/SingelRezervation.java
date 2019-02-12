@@ -13,36 +13,52 @@ public class SingelRezervation {
     private String numberRoomRezervation;
     private String hoursStart;
     private String hoursEnd;
+    private Boolean isKeyInPortier=false;
+    private Integer idRezervation;
     private int picture;
 
+    public Boolean getKeyInPortier() {
+        return isKeyInPortier;
+    }
 
+    public void setKeyInPortier(Boolean keyInPortier) {
+        isKeyInPortier = keyInPortier;
+    }
 
-
-
-    public SingelRezervation( String title, String day, String month, String numberRoom ){
+    public SingelRezervation(String title, String day, String month, String numberRoom ){
         setDayRezervation(day);
         setMonthRezervation(month);
         setNumberRoomRezervation(numberRoom);
         setTitleRezervation(title);
 
         for (int i = 0; i < getTitleRezervation().length() ; i++) {
-            if(getTitleRezervation().substring(0,i).equalsIgnoreCase("pralnia")){
+            if(getTitleRezervation().substring(0,i).equalsIgnoreCase("laundry")){
                 setPicture(R.drawable.pralnia_card);
             }
-            else if(getTitleRezervation().substring(0,i).equalsIgnoreCase("sala tv")){
+            else if(getTitleRezervation().substring(0,i).equalsIgnoreCase("TV")){
                 setPicture(R.drawable.sala_tv_card);
 
             }
         }
 
     }
+    public SingelRezervation(){
+        super();
+    }
+
 
 
     public int getPicture() {
         return picture;
     }
 
+    public Integer getIdRezervation() {
+        return idRezervation;
+    }
 
+    public void setIdRezervation(Integer idRezervation) {
+        this.idRezervation = idRezervation;
+    }
 
     public void setPicture(int picture) {
         this.picture = picture;
@@ -54,6 +70,16 @@ public class SingelRezervation {
 
     public void setTitleRezervation(String titleRezervation) {
         this.titleRezervation = titleRezervation;
+
+        for (int i = 0; i < titleRezervation.length() ; i++) {
+            if(titleRezervation.substring(0,i).equalsIgnoreCase("laundry")){
+                setPicture(R.drawable.pralnia_card);
+            }
+            else if(titleRezervation.substring(0,i).equalsIgnoreCase("TV")){
+                setPicture(R.drawable.sala_tv_card);
+
+            }
+        }
     }
 
     public String getHoursStart() {

@@ -78,9 +78,7 @@ public class AddRezervationFragment extends Fragment {
 
                 else {
 
-                    AccountActivity ac =(AccountActivity) getActivity();
 
-                    ac.setInformationToabotherFragment(item);
 
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.popBackStack(KeepKey.KEY_FRAGMENT_OTHER_REZERVATION, FragmentManager.POP_BACK_STACK_INCLUSIVE);

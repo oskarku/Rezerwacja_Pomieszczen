@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.AccountDetale.AccountDetalFragment;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.CHeffView.PanelCHeffFragment;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RezervationView.AddRezervationFragment;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant.CalendarFragment;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant.MyRezervationFragment;
@@ -14,6 +15,7 @@ import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant.R
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.keep.KeepKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -54,18 +56,15 @@ public class AccountActivity extends AppCompatActivity
 
         frameLayout = (FrameLayout) findViewById(R.id.frame_layout_account);
 
-
-
-
+        /*
+        ponizsze metody wczytuje jakie fragmenty powinny byc
+         */
         accountModelView.checkLoginTypeAcount(pref.getString(KeepKey.KEY_TYPE_ACCOUNT, null));
 
 
 
 
-//        if(getSupportFragmentManager().getBackStackEntryAt(0).getName()!=null){
-//            nameFirstFragmentonBackStack = getSupportFragmentManager().getBackStackEntryAt(0).getName();
-//
-//        }
+
 
         getSupportFragmentManager().popBackStack(nameFirstFragmentonBackStack, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
@@ -141,26 +140,14 @@ public class AccountActivity extends AppCompatActivity
 
                             if (id == R.id.nav_student_event_menu) {
 
-
-                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                                ft.replace(R.id.frame_layout_account, new CalendarFragment());
-                                ft.commit();
+                                switchFragment(KeepKey.KEY_FRAGMENT_CALENDAR, new CalendarFragment());
 
 
                             }
 
                             else if( id == R.id.nav_student_myEvent){
 
-
-
-
-                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                                ft.replace(R.id.frame_layout_account, new MyRezervationFragment());
-                                ft.addToBackStack("nan");
-                                getSupportFragmentManager().popBackStack("nan", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-
-                                ft.commit();
+                                switchFragment(KeepKey.KEY_FRAGMENT_MY_REZERWATION, new MyRezervationFragment());
 
                             }
 
@@ -168,13 +155,7 @@ public class AccountActivity extends AppCompatActivity
 
                             else if (id == R.id.nav_student_personality_date) {
 
-                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                                ft.replace(R.id.frame_layout_account, new AccountDetalFragment());
-                                ft.addToBackStack("detal_acount");
-                                getSupportFragmentManager().popBackStack("detal_acount", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-
-                                ft.commit();
+                                switchFragment(KeepKey.KEY_FRAGMMENT_MY_DETAL_ACCOUNT, new AccountDetalFragment());
 
 
                             } else if (id == R.id.nav_student_logout) {
@@ -197,12 +178,7 @@ public class AccountActivity extends AppCompatActivity
 
 
 
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    fragmentManager.popBackStack(KeepKey.KEY_FRAGMENT_CALENDAR, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.add(R.id.frame_layout_account, new CalendarFragment());
-                    ft.addToBackStack(KeepKey.KEY_FRAGMENT_CALENDAR);
-                    ft.commit();
+                   switchFragment(KeepKey.KEY_FRAGMENT_CALENDAR, new CalendarFragment());
 
                 }
 
@@ -216,6 +192,61 @@ public class AccountActivity extends AppCompatActivity
         final Observer<Boolean> booleanObserverInChef = new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
+
+                if(aBoolean){
+
+
+                    navigationView.getMenu().clear();
+                    navigationView.inflateMenu(R.menu.menu_cheff);
+
+
+                    navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                        @Override
+                        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                            // Handle navigation view item clicks here.
+                            int id = menuItem.getItemId();
+
+
+
+
+
+                             if (id == R.id.nav_cheff_personality_date) {
+
+                               switchFragment(KeepKey.KEY_FRAGMMENT_MY_DETAL_ACCOUNT, new AccountDetalFragment());
+
+
+                            }
+
+                            else if (id== R.id.nav_cheff_panel){
+                                 switchFragment(KeepKey.KEY_FRAGMENT_CHEFF, new PanelCHeffFragment());
+                             }
+
+
+                            else if (id == R.id.nav_cheff_personality_date_logout) {
+
+                                pref.edit().clear().commit();
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+                                startActivity(intent);
+
+
+
+                            }
+
+                            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                            drawer.closeDrawer(GravityCompat.START);
+                            return true;
+
+                        }
+                    });
+
+
+
+                    switchFragment(KeepKey.KEY_FRAGMENT_CHEFF, new PanelCHeffFragment());
+
+
+                }
 
 
             }
@@ -238,6 +269,16 @@ public class AccountActivity extends AppCompatActivity
 
     }
 
+    public void  switchFragment(String keyTag, Fragment fragment){
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack(keyTag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.frame_layout_account, fragment);
+        ft.addToBackStack(keyTag);
+        ft.commit();
+    }
+
 
 
 
@@ -253,16 +294,11 @@ public class AccountActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.account, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -273,20 +309,6 @@ public class AccountActivity extends AppCompatActivity
         return super.onPrepareOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
     public void setInformationToabotherFragment(String item) {

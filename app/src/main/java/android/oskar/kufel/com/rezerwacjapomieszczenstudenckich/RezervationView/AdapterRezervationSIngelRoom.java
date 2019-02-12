@@ -1,22 +1,24 @@
 package android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RezervationView;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.AccountActivity;
+import android.content.res.Resources;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.R;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,6 +26,14 @@ public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterR
     private Context context;
     private Activity activity;
     private List<SingelRezervation> listRezervation;
+    private LayoutInflater layoutinflater;
+    private View customizedUserView;
+    private TextView startHourDialog, endHourDialog, titleRezerwationDialog;
+    private Button cancelButtonAlertDetal;
+    private CheckBox checkBoxIsKey;
+    private AlertDialog.Builder alertDialogBuilder;
+    private AlertDialog alertDialog;
+
 
     public AdapterRezervationSIngelRoom(Context con, List<SingelRezervation> listRez, Activity activity){
         this.context = con;
@@ -64,12 +74,12 @@ public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterR
     }
 
 
-    private void showPopupMenu(View view, String startRezerwation, String endRezerwation) {
+    private void showPopupMenu(View view, String startRezerwation, String endRezerwation, String titleRezerwation, Boolean isKey) {
         // inflate menu
         PopupMenu popup = new PopupMenu(context, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_rezervation_card, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(startRezerwation, endRezerwation));
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(startRezerwation, endRezerwation, titleRezerwation, isKey));
         popup.show();
     }
 
@@ -86,7 +96,7 @@ public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterR
         myViewHolder.iconMenuDetal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupMenu(myViewHolder.iconMenuDetal, singelRezervation.getHoursStart(), singelRezervation.getHoursEnd());
+                showPopupMenu(myViewHolder.iconMenuDetal, singelRezervation.getHoursStart(), singelRezervation.getHoursEnd(), singelRezervation.getTitleRezervation(), singelRezervation.getKeyInPortier());
             }
         });
 
@@ -104,9 +114,14 @@ public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterR
     private class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
         private String start;
         private String end;
-        public MyMenuItemClickListener (String start, String end){
+        private String title;
+        private Boolean isKey;
+        public MyMenuItemClickListener (String start, String end, String title, Boolean isKey){
             this.start = start;
             this.end = end ;
+            this.title = title;
+            this.isKey = isKey;
+
 
         }
 
@@ -119,6 +134,7 @@ public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterR
          * @return {@code true} if the event was handled, {@code false}
          * otherwise
          */
+
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
 
@@ -129,55 +145,49 @@ public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterR
                 case R.id.menu_rezervation_detal:
                     menuItem.getActionProvider();
 
+                    layoutinflater = LayoutInflater.from(context);
+                    customizedUserView = layoutinflater.inflate(R.layout.alert_dialog_detal_view, null);
+                    startHourDialog =(customizedUserView.findViewById(R.id.textViewStartRezerwationAlertDialog));
+                    endHourDialog =(customizedUserView.findViewById(R.id.textViewEndRezerwationAlertDialog));
+                    titleRezerwationDialog = (customizedUserView.findViewById(R.id.textViewTitleRezerwationAlertDialog));
+                    cancelButtonAlertDetal =(customizedUserView.findViewById(R.id.buttonCancelAlertDetal));
+                    checkBoxIsKey = (customizedUserView.findViewById(R.id.checkBoxIsKeyOnPortier));
+                    checkBoxIsKey.setChecked(isKey);
 
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//                    builder.setTitle(context.getString(R.string.title_info));
-//                    builder.setMessage(context.getString(R.string.alert_dialog_info_detal_strat_hurse)+" "+start+"\n "+context.getString(R.string.alert_dialog_info_detal_end_hurse)+" "+ end);
-//                    builder.setPositiveButton("OK", null);
-//                    builder.show();
-
-
-//                    final View bottomSheetLayout = activity.getLayoutInflater().inflate(R.layout.alert_dialog_detal_view, null);
-//                    (bottomSheetLayout.findViewById(R.id.button_close)).setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            mBottomSheetDialog.dismiss();
-//                        }
-//                    });
-//                    (bottomSheetLayout.findViewById(R.id.button_ok)).setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Toast.makeText(getApplicationContext(), "Ok button clicked", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//
-//                    mBottomSheetDialog = new BottomSheetDialog(this);
-//                    mBottomSheetDialog.setContentView(bottomSheetLayout);
-//                    mBottomSheetDialog.show();
+                    if (checkBoxIsKey.isChecked()==true){
+                        //checkBoxIsKey.setTextColor(android.R.color.holo_green_dark);
+                        checkBoxIsKey.setText(activity.getString(R.string.yes));
+                        checkBoxIsKey.setTextColor(activity.getResources().getColor(android.R.color.holo_green_dark));
+                    }
+                    else if (checkBoxIsKey.isChecked() == false){
+                        //checkBoxIsKey.setTextColor(android.R.color.holo_red_dark);
+                        checkBoxIsKey.setText(activity.getString(R.string.no));
+                        checkBoxIsKey.setTextColor(activity.getResources().getColor(android.R.color.holo_red_light));
+                    }
 
 
+                    titleRezerwationDialog.setText(title);
+                    startHourDialog.setText(start);
+                    endHourDialog.setText(end);
 
-                    LayoutInflater layoutinflater = LayoutInflater.from(context);
-                    View customizedUserView = layoutinflater.inflate(R.layout.alert_dialog_detal_view, null);
-                    TextView startHour =(customizedUserView.findViewById(R.id.textViewStartRezerwationAlertDialog));
-                    TextView endHout =(customizedUserView.findViewById(R.id.textViewEndRezerwationAlertDialog));
-                    startHour.setText(start);
-                    endHout.setText(end);
+                    cancelButtonAlertDetal.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+
+                        }
+                    });
 
 
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                    alertDialogBuilder = new AlertDialog.Builder(context);
 
                     alertDialogBuilder.setView(customizedUserView);
 
-                    // don't do this !
-                    // we have a customized header title
-                    //alertDialogBuilder.setTitle("This app");
 
-                    // all set and time to build and show up!
-                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+
+                    alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
-
-
 
 
 

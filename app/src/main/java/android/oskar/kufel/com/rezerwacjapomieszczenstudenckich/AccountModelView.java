@@ -8,9 +8,9 @@ import android.support.annotation.NonNull;
 public class AccountModelView extends AndroidViewModel {
 
 
-    private static final String KEY_INHABIT="student";
-    private static final String KEY_PORTIER="portier";
-    private static final String KEY_CHEF="kierownik";
+    private static final String KEY_INHABIT="STUDENT";
+    private static final String KEY_PORTIER="PORTIER";
+    private static final String KEY_CHEF="ADMIN";
 
     private MutableLiveData<Boolean> isInhabit = new MutableLiveData<>();
     private MutableLiveData<Boolean> isPortier = new MutableLiveData<>();

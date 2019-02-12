@@ -7,9 +7,9 @@
         android:title="@string/menu_rezervation_detal" />
 
     <item
-        android:id="@+id/menu_my_rezervation_inhabit_change"
+        android:id="@+id/menu_my_rezervation_delate"
         android:orderInCategory="100"
-        android:title="@string/menu_change_rezerwation" />
+        android:title="@string/nav_my_rezerwation_delate" />
 
 
 

@@ -1,9 +1,12 @@
 package android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ViewInhabitant;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ComunicationNetwork.RetroClient;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.R;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RezervationView.SingelRezervation;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.api.ApiService;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,13 +21,21 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 class AdapterMyrezerwation extends  RecyclerView.Adapter<AdapterMyrezerwation.MyViewHolder> {
     private Context context;
     private List<SingelRezervation> listRezervation;
+    private Activity activity;
+    private Call<String> delateRezervationCall;
+    private ApiService api;
 
-    public AdapterMyrezerwation(Context con, List<SingelRezervation> listRez){
+    public AdapterMyrezerwation(Context con, List<SingelRezervation> listRez, Activity acti){
         this.context = con;
         this.listRezervation= listRez;
+        this.activity = acti;
     }
 
 
@@ -60,18 +71,18 @@ class AdapterMyrezerwation extends  RecyclerView.Adapter<AdapterMyrezerwation.My
     }
 
 
-    private void showPopupMenu(View view, String start, String end) {
+    private void showPopupMenu(View view, String start, String end, int position) {
         // inflate menu
         PopupMenu popup = new PopupMenu(context, view);
         MenuInflater inflater = popup.getMenuInflater();
         //TODO stworzyc menu z opcja wymiany
         inflater.inflate(R.menu.menu_my_rezervation_habitant, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(start, end));
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(start, end, position));
         popup.show();
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
 
         final SingelRezervation singelRezervation = listRezervation.get(position);
         myViewHolder.textViewRoomRezervation.setText(singelRezervation.getNumberRoomRezervation());
@@ -84,10 +95,47 @@ class AdapterMyrezerwation extends  RecyclerView.Adapter<AdapterMyrezerwation.My
             @Override
             public void onClick(View v) {
 
-                showPopupMenu(myViewHolder.iconMenuDetal, singelRezervation.getHoursStart(), singelRezervation.getHoursEnd());
+                showPopupMenu(myViewHolder.iconMenuDetal, singelRezervation.getHoursStart(), singelRezervation.getHoursEnd(),position);
             }
         });
 
+
+    }
+
+    public void removeItem(final int position) {
+        if(!listRezervation.isEmpty()){
+            api = RetroClient.getApiService();
+            delateRezervationCall = (Call<String>) api.delateMyrezerwation(RetroClient.getHeadersMap(activity.getApplicationContext()), listRezervation.get(position).getIdRezervation());
+            delateRezervationCall.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if(response.code()==401){
+                        RetroClient.getNewToken(activity,"usuwanie rezerwacji");
+                        delateRezervationCall.clone();
+                    }
+                    else if(response.isSuccessful()){
+                        listRezervation.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, listRezervation.size());
+                        Toast.makeText(activity.getApplicationContext(),activity.getString(R.string.position_delate)+" \n" +
+                                "rowniez na serwerze", Toast.LENGTH_SHORT).show();
+
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+
+                }
+            });
+            }
+
+
+        else {
+            Toast.makeText(activity.getApplicationContext(), activity.getString(R.string.donot_delete_list_empty), Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -102,9 +150,11 @@ class AdapterMyrezerwation extends  RecyclerView.Adapter<AdapterMyrezerwation.My
     private class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
         private String start;
         private String end;
-        public MyMenuItemClickListener (String start, String end){
+        private int positionRezerwation ;
+        public MyMenuItemClickListener(String start, String end, int position){
             this.start = start;
             this.end = end ;
+            this.positionRezerwation = position;
 
         }
 
@@ -120,9 +170,8 @@ class AdapterMyrezerwation extends  RecyclerView.Adapter<AdapterMyrezerwation.My
                     builder.setPositiveButton("OK", null);
                     builder.show();
                     return true;
-                case R.id.menu_my_rezervation_inhabit_change:
-                    ///TODO : Zaimplementowac rozwizanie z wymiana pokoji dialog albo fragment
-                    Toast.makeText(context, "Tu wymienisz sie rezerwacjami", Toast.LENGTH_SHORT).show();
+                case R.id.menu_my_rezervation_delate:
+                    removeItem(positionRezerwation);
                     return true;
 
                 default:

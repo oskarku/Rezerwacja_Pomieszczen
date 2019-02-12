@@ -1,18 +1,8 @@
 package android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ComunicationNetwork;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class LoginUser {
-
-    @SerializedName("status")
-    @Expose
-    private String username;
-
-    @SerializedName("status")
-    @Expose
     private String passwort;
-
+    private String username;
 
     public String getUsername() {
         return username;

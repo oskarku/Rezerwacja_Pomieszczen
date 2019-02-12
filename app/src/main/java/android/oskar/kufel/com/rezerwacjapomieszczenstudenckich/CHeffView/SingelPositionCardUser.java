@@ -8,9 +8,31 @@ public class SingelPositionCardUser {
     private String typeAccount;
     private String userName;
     private String numberRoom;
-
-    private Resources resources;
+    private String phoneNumber;
     private int avatarAcoount;
+
+
+
+
+    public SingelPositionCardUser(String typeAccount, String userName, String numberRoom, String phone){
+        setNumberRoom(numberRoom);
+        setPhoneNumber(phone);
+        setTypeAccount(typeAccount);
+        setUserName(userName);
+        setAvatarAcoount(getTypeAccount());
+    }
+
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+
 
     public String getTypeAccount() {
         return typeAccount;

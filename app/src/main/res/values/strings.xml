@@ -1,6 +1,7 @@
 <resources>
 
     <string name="dialog_loading_login">Poczekaj chwile... Loguje się </string>
+    <string name="dialog_loading_rezerwation">Poczekaj chwile... Ładuje rezerwacje </string>
     <string name="hide_date">Ukryte dane !</string>
     <string name="Un_hide_option_edit_passwort">Odkryłem opcje edycji hasła !</string>
     <string name="app_name">RPS live</string>
@@ -54,7 +55,6 @@
     <string-array name="type_rezerwation">
         <item>Zarezerwuj Pralnie</item>
         <item>Zarezerwuj Sale TV</item>
-        <item>Zarezerwuj Sale Gier i  Zabaw</item>
     </string-array>
 
 
@@ -104,5 +104,20 @@
     <string name="get_old_password_hint">Tutaj wpisz swoje stare haslo ...</string>
     <string name="get_new_passwort_hint">Tutaj wpisz swoje nowe hasło</string>
     <string name="repate_new_passwort_hint">Powtórz nowe haslo</string>
+    <string name="is_the_key_at_the_porters_loddge_question">Czy klucz jest na portierni ???</string>
+    <string name="nav_my_rezerwation_delate" >Usuń rezerwacje</string>
+    <string name="donot_delete_list_empty" >Nie można usunąć pozycji lista jest pusta </string>
+    <string name="panel_cheff">Panel Kierownika</string>
+    <string name="your_username">Podaj  twój username</string>
+    <string name="hint_username">Tutaj wpisz nazwe uzytkownika</string>
+    <string name="hint_get_email">Podaj tutaj email</string>
+    <string name="hint_get_number_phone">Tutaj wpisz numer telefonu</string>
+    <string name="choose_account">Wybierz typ konta</string>
+    <string name="hint_get_number_room">Tutaj wpisz numer pokoju</string>
+    <string name="valide_password_true">Takie haslo moze być</string>
+    <string name="valide_username_is_small">Za krótka nazwa użytkownika</string>
+    <string name="valide_username_is_empty">Nazwa uzytkownika jest pusta ! </string>
+    <string name="event_created">Wydarzenie jest utworzone</string>
+    <string name="event_created_problem">Wydarzenie jest utworzone</string>
 
 </resources>
