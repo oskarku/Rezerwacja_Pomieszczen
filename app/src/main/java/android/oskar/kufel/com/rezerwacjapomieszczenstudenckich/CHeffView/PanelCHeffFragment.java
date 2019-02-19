@@ -8,10 +8,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ComunicationNetwork.DateMe;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ComunicationNetwork.RetroClient;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.MainActivity;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RecyclerTouchListener;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RezervationView.AdapterRezervationSIngelRoom;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.RezervationView.SingelRezervation;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.api.ApiService;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -33,6 +36,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class PanelCHeffFragment extends Fragment {
 
@@ -42,6 +49,8 @@ public class PanelCHeffFragment extends Fragment {
     private ArrayAdapter<CharSequence> adapter;
     private List<SingelPositionCardUser> listAcount;
     private AdapterRecycrelViewPanelCheff mAdapter;
+    private ApiService api;
+    private Call<List<DateMe>> getListUserStudent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -123,13 +132,33 @@ public class PanelCHeffFragment extends Fragment {
     }
 
     public void uploadSimleDate() {
-        SingelPositionCardUser position;
-        position = new SingelPositionCardUser("student", "ola123", "215", "516020041");
-        listAcount.add(position);
-        position = new SingelPositionCardUser("portier", "patryko ", "218", "579519226");
-        listAcount.add(position);
-        position = new SingelPositionCardUser("student", "patryk123", "215", "516020041");
-        listAcount.add(position);
+        api= RetroClient.getApiService();
+        getListUserStudent = (Call<List<DateMe>>) api.listAccountTypeStudent(RetroClient.getHeadersMap(getActivity()),"STUDENT");
+        getListUserStudent.enqueue(new Callback<List<DateMe>>() {
+            @Override
+            public void onResponse(Call<List<DateMe>> call, Response<List<DateMe>> response) {
+                if(response.isSuccessful()){
+                    for (DateMe position :
+                            response.body()) {
+                        SingelPositionCardUser card = new SingelPositionCardUser();
+                        card.setIdUser(position.getId());
+                        card.setAvatarAcoount(position.getType());
+                        card.setUserName(position.getNick());
+                        card.setPhoneNumber(position.getPhone().toString());
+                        card.setTypeAccount(position.getType());
+                        card.setNumberRoom(position.getRoom().toString());
+                        listAcount.add(card);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DateMe>> call, Throwable t) {
+
+            }
+        });
+
 
     }
 }

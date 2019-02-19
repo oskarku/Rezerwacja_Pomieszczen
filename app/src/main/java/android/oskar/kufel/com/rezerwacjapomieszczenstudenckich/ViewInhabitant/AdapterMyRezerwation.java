@@ -166,7 +166,8 @@ class AdapterMyrezerwation extends  RecyclerView.Adapter<AdapterMyrezerwation.My
                 case R.id.menu_my_rezervation_inhabit_detal:
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle(context.getString(R.string.title_info));
-                    builder.setMessage(context.getString(R.string.alert_dialog_info_detal_strat_hurse)+" "+start+"\n "+context.getString(R.string.alert_dialog_info_detal_end_hurse)+" "+ end);
+                    builder.setMessage(context.getString(R.string.alert_dialog_info_detal_strat_hurse)+" "+start+"\n "+context.getString(R.string.alert_dialog_info_detal_end_hurse)+" "+ end+"\n" +
+                            "data zakończenia"+ listRezervation.get(positionRezerwation).getEndDate() );
                     builder.setPositiveButton("OK", null);
                     builder.show();
                     return true;

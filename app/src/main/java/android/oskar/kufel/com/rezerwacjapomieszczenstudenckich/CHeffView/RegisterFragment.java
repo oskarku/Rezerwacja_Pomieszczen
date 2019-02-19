@@ -350,7 +350,7 @@ public class RegisterFragment extends Fragment {
 
         if(editTextReepetPaswoord.getText()!=null){
 
-            if(editTextPasswordUser.getText().toString().equals(editTextReepetPaswoord.getText().toString())){
+            if(editTextPasswordUser.getText().toString().equals(editTextReepetPaswoord.getText().toString()) && !(editTextReepetPaswoord.getText().length()>0)){
                 valid = true;
             }
             else{

@@ -10,9 +10,15 @@ public class SingelPositionCardUser {
     private String numberRoom;
     private String phoneNumber;
     private int avatarAcoount;
+    private int idUser ;
 
+    public int getIdUser() {
+        return idUser;
+    }
 
-
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
 
     public SingelPositionCardUser(String typeAccount, String userName, String numberRoom, String phone){
         setNumberRoom(numberRoom);
@@ -20,6 +26,9 @@ public class SingelPositionCardUser {
         setTypeAccount(typeAccount);
         setUserName(userName);
         setAvatarAcoount(getTypeAccount());
+    }
+    public SingelPositionCardUser(){
+
     }
 
 

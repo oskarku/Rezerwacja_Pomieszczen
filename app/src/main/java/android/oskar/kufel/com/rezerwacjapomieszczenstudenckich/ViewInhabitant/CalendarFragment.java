@@ -326,6 +326,7 @@ public class CalendarFragment extends Fragment {
                                     positionI.setDayRezervation(""+dateBegin.getDate());
                                     positionI.setHoursEnd(""+dateEnd.getHours()+":"+dateEnd.getMinutes());
                                     positionI.setHoursStart(""+dateBegin.getHours()+":"+dateBegin.getMinutes());
+                                    positionI.setEndDate(dateEnd.getDate()+"."+dateEnd.getMonth()+"."+dateEnd.getYear());
 
 
 

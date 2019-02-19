@@ -9,27 +9,40 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.AccountActivity;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.ComunicationNetwork.RetroClient;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.MainActivity;
 import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.R;
+import android.oskar.kufel.com.rezerwacjapomieszczenstudenckich.api.ApiService;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdapterRecycrelViewPanelCheff extends RecyclerView.Adapter<AdapterRecycrelViewPanelCheff.MyViewHolder> {
     private Context context;
@@ -37,10 +50,12 @@ public class AdapterRecycrelViewPanelCheff extends RecyclerView.Adapter<AdapterR
     private Activity activity;
     private LayoutInflater layoutinflater;
     private View customizedUserView;
-    private EditText editTextChangeNumber, editTextGetNewPassword, editTextGetOldPassword, editTextGetReepetNewPassword;
+    private EditText  editTextGetNewPassword, editTextGetReepetNewPassword, editTextEmail, editTextPhoneNumber, editTextNumberRoom;
+    private Button saveData;
+    private Spinner typeChangeSpiner;
+    private ConstraintLayout layoutOtherDate, layoutSetPassword ;
 
-    private TextView textViewHintGetNewPasswort, textViewHintGetOldPassword, textViewHintGetReepenNewPassword;
-    private Switch switchSetEditPassword;
+
     private ImageView cancelImageView;
     private AlertDialog alertDialog;
 
@@ -117,17 +132,6 @@ public class AdapterRecycrelViewPanelCheff extends RecyclerView.Adapter<AdapterR
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         ///TODO zrobic fragment do zmiany uzytkownika
 
         myViewHolder.setingUser.setOnClickListener(new View.OnClickListener() {
@@ -136,55 +140,83 @@ public class AdapterRecycrelViewPanelCheff extends RecyclerView.Adapter<AdapterR
 
                 layoutinflater = LayoutInflater.from(activity);
                 customizedUserView = layoutinflater.inflate(R.layout.edit_date_alert, null);
-                editTextChangeNumber =(customizedUserView.findViewById(R.id.editTextNumberChcngeDetal));
-                switchSetEditPassword = (customizedUserView.findViewById(R.id.switchWontChangePasswordEditDialog));
                 cancelImageView = (customizedUserView.findViewById(R.id.imageViewCancelEdidAlertDialog));
                 editTextGetNewPassword = (customizedUserView.findViewById(R.id.editTextGetNewPassword));
-                editTextGetOldPassword = (customizedUserView.findViewById(R.id.editTextGetOldPassword));
+
                 editTextGetReepetNewPassword = (customizedUserView.findViewById(R.id.editTextRepeatNewPassword));
-                textViewHintGetNewPasswort =(customizedUserView.findViewById(R.id.textViewHintGetNewpassword));
-                textViewHintGetOldPassword = (customizedUserView.findViewById(R.id.textViewHintGetOldPassword));
-                textViewHintGetReepenNewPassword = (customizedUserView.findViewById(R.id.textViewReepatNewpasswordHint));
+
+                typeChangeSpiner = (customizedUserView.findViewById(R.id.spinner_type_change_data_edit_data));
+                layoutOtherDate = (ConstraintLayout)(customizedUserView.findViewById(R.id.constrain_layout_other_date));
+                layoutSetPassword = (ConstraintLayout)(customizedUserView.findViewById(R.id.constrain_Layout_set_password));
+                editTextEmail =(customizedUserView.findViewById(R.id.edit_text_email_edit_date_alert));
+                editTextNumberRoom=(customizedUserView.findViewById(R.id.edit_text_room_edit_alert_data));
+                editTextPhoneNumber = (customizedUserView.findViewById(R.id.edit_text_number_phone_edit_alert_data));
+                saveData= (customizedUserView.findViewById(R.id.button_save_date_edit_date_alert));
+
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
+                        R.array.type_change, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                typeChangeSpiner.setAdapter(adapter);
 
 
-                switchSetEditPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                JSONObject objectBody = new JSONObject();
+
+                typeChangeSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                        if(isChecked==true){
-
-
-                            Toast toast = Toast.makeText(activity.getApplicationContext(),activity.getString(R.string.Un_hide_option_edit_passwort) , Toast.LENGTH_SHORT);
-                            toast.show();
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        if (position == 0){
+                            //jaak jest zmiana daty
+                            layoutOtherDate.setVisibility(View.VISIBLE);
+                            layoutSetPassword.setVisibility(View.INVISIBLE);
 
 
-                            editTextGetNewPassword.setVisibility(View.VISIBLE);
-                            editTextGetOldPassword.setVisibility(View.VISIBLE);
-                            editTextGetReepetNewPassword.setVisibility(View.VISIBLE);
-                            textViewHintGetNewPasswort.setVisibility(View.VISIBLE);
-                            textViewHintGetOldPassword.setVisibility(View.VISIBLE);
-                            textViewHintGetReepenNewPassword.setVisibility(View.VISIBLE);
-
-                            ///TODO zrobic opcje w api do zapisywania
-
-
-
+                            saveData.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if()
+                                }
+                            });
 
                         }
-                        else if(isChecked==false) {
-
-                            editTextGetNewPassword.setVisibility(View.INVISIBLE);
-                            editTextGetOldPassword.setVisibility(View.INVISIBLE);
-                            editTextGetReepetNewPassword.setVisibility(View.INVISIBLE);
-                            textViewHintGetNewPasswort.setVisibility(View.INVISIBLE);
-                            textViewHintGetOldPassword.setVisibility(View.INVISIBLE);
-                            textViewHintGetReepenNewPassword.setVisibility(View.INVISIBLE);
-
+                        else if (position ==1){
+                            layoutOtherDate.setVisibility(View.INVISIBLE);
+                            layoutSetPassword.setVisibility(View.VISIBLE);
 
                         }
 
                     }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        parent.setSelection(0);
+                    }
                 });
+
+                saveData.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(layoutSetPassword.getVisibility()==View.VISIBLE){
+                            Toast tost =Toast.makeText(activity.getApplicationContext(), "jestem w zmianie danych HASLO",Toast.LENGTH_SHORT);
+                            tost.setGravity(Gravity.CENTER, 0,0);
+                            tost.show();
+
+                        }
+                        else if (layoutOtherDate.getVisibility()==View.VISIBLE){
+                            Toast tost =Toast.makeText(activity.getApplicationContext(), "jestemw zmianie danych roznych",Toast.LENGTH_SHORT);
+                            tost.setGravity(Gravity.TOP, 0,0);
+                            tost.show();
+
+                        }
+                    }
+                });
+
+
+
+
+
+
+
+
 
 
 
@@ -221,7 +253,9 @@ public class AdapterRecycrelViewPanelCheff extends RecyclerView.Adapter<AdapterR
             @Override
             public void onClick(View v) {
 
+
                 removeItem(position);
+                //TODO usunac urzytkownika z bazy danych (implemetacja API)
                 
             }
         });
@@ -229,12 +263,35 @@ public class AdapterRecycrelViewPanelCheff extends RecyclerView.Adapter<AdapterR
 
 
 
-    public void removeItem(int position) {
+
+    public void removeItem(final int position) {
         if(!listUser.isEmpty()){
-            listUser.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, listUser.size());
-            Toast.makeText(activity.getApplicationContext(),activity.getString(R.string.position_delate), Toast.LENGTH_SHORT).show();}
+            SingelPositionCardUser card = listUser.get(position);
+            ApiService api = RetroClient.getApiService();
+            Call<String> delateU = (Call<String>) api.delateUsers(RetroClient.getHeadersMap(activity),card.getIdUser());
+            delateU.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if(response.code()==204){
+
+
+                        listUser.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, listUser.size());
+                        Toast.makeText(activity.getApplicationContext(),activity.getString(R.string.position_delate), Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+
+                }
+            });
+
+
+
+        }
         else {
             Toast.makeText(activity.getApplicationContext(), activity.getString(R.string.donot_delete_list_empty), Toast.LENGTH_SHORT).show();
         }

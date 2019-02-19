@@ -28,9 +28,8 @@ public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterR
     private List<SingelRezervation> listRezervation;
     private LayoutInflater layoutinflater;
     private View customizedUserView;
-    private TextView startHourDialog, endHourDialog, titleRezerwationDialog;
+    private TextView startHourDialog, endHourDialog, titleRezerwationDialog, endDateRezervation;
     private Button cancelButtonAlertDetal;
-    private CheckBox checkBoxIsKey;
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog alertDialog;
 
@@ -74,17 +73,17 @@ public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterR
     }
 
 
-    private void showPopupMenu(View view, String startRezerwation, String endRezerwation, String titleRezerwation, Boolean isKey) {
+    private void showPopupMenu(View view, String startRezerwation, String endRezerwation, String titleRezerwation, Boolean isKey, Integer posit) {
         // inflate menu
         PopupMenu popup = new PopupMenu(context, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_rezervation_card, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(startRezerwation, endRezerwation, titleRezerwation, isKey));
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(startRezerwation, endRezerwation, titleRezerwation, isKey, posit));
         popup.show();
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final AdapterRezervationSIngelRoom.MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(@NonNull final AdapterRezervationSIngelRoom.MyViewHolder myViewHolder, final int position) {
 
         final SingelRezervation singelRezervation = listRezervation.get(position);
         myViewHolder.textViewRoomRezervation.setText(singelRezervation.getNumberRoomRezervation());
@@ -96,7 +95,7 @@ public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterR
         myViewHolder.iconMenuDetal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupMenu(myViewHolder.iconMenuDetal, singelRezervation.getHoursStart(), singelRezervation.getHoursEnd(), singelRezervation.getTitleRezervation(), singelRezervation.getKeyInPortier());
+                showPopupMenu(myViewHolder.iconMenuDetal, singelRezervation.getHoursStart(), singelRezervation.getHoursEnd(), singelRezervation.getTitleRezervation(), singelRezervation.getKeyInPortier(), position);
             }
         });
 
@@ -116,11 +115,13 @@ public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterR
         private String end;
         private String title;
         private Boolean isKey;
-        public MyMenuItemClickListener (String start, String end, String title, Boolean isKey){
+        private Integer position;
+        public MyMenuItemClickListener (String start, String end, String title, Boolean isKey, Integer position){
             this.start = start;
             this.end = end ;
             this.title = title;
             this.isKey = isKey;
+            this.position = position;
 
 
         }
@@ -151,24 +152,13 @@ public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterR
                     endHourDialog =(customizedUserView.findViewById(R.id.textViewEndRezerwationAlertDialog));
                     titleRezerwationDialog = (customizedUserView.findViewById(R.id.textViewTitleRezerwationAlertDialog));
                     cancelButtonAlertDetal =(customizedUserView.findViewById(R.id.buttonCancelAlertDetal));
-                    checkBoxIsKey = (customizedUserView.findViewById(R.id.checkBoxIsKeyOnPortier));
-                    checkBoxIsKey.setChecked(isKey);
+                    endDateRezervation = (TextView)(customizedUserView.findViewById(R.id.textViewDateEndAlertDialog));
 
-                    if (checkBoxIsKey.isChecked()==true){
-                        //checkBoxIsKey.setTextColor(android.R.color.holo_green_dark);
-                        checkBoxIsKey.setText(activity.getString(R.string.yes));
-                        checkBoxIsKey.setTextColor(activity.getResources().getColor(android.R.color.holo_green_dark));
-                    }
-                    else if (checkBoxIsKey.isChecked() == false){
-                        //checkBoxIsKey.setTextColor(android.R.color.holo_red_dark);
-                        checkBoxIsKey.setText(activity.getString(R.string.no));
-                        checkBoxIsKey.setTextColor(activity.getResources().getColor(android.R.color.holo_red_light));
-                    }
-
-
+                    endDateRezervation.setText(listRezervation.get(position).getEndDate());
                     titleRezerwationDialog.setText(title);
                     startHourDialog.setText(start);
                     endHourDialog.setText(end);
+
 
                     cancelButtonAlertDetal.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -180,16 +170,12 @@ public class AdapterRezervationSIngelRoom extends  RecyclerView.Adapter<AdapterR
 
 
                     alertDialogBuilder = new AlertDialog.Builder(context);
-
                     alertDialogBuilder.setView(customizedUserView);
-
 
 
 
                     alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
-
-
 
 
 

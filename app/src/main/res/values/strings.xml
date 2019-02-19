@@ -47,7 +47,7 @@
     <string name="add_to_list_program_wash">dodalem do listy pranie </string>
     <string name="yes">tak</string>
     <string name="no">nie</string>
-    <string name="position_delate">Pozycja usunieta</string>
+    <string name="position_delate">Pozycja usunieta, rowniez na serwerze</string>
     <string name="question_about_delate_position_list">Czy chcesz usunąć pozycje z listy?</string>
     <string name="hint_choose_washhouse">Wpisz pralnie ...</string>
     <string name="describe_using_calendar_fragment">Poniżej kalendarza widzisz liste rezerwacji pomieszczen na dany dzien \n
@@ -93,7 +93,7 @@
     <string name="text_view_choose_type_account">Wybierz typ  konta :</string>
     <string name="hint_get_number">Podaj swój numer </string>
     <string name="type_account">Typ konta</string>
-    <string name="number_telephon">numer telefonu</string>
+    <string name="number_telephon">Numer telefonu</string>
     <string name="change_date">Zmień dane</string>
     <string name="change_number_phone">Zmień numer telefonu</string>
     <string name="save_date">Zapisz dane</string>
@@ -119,5 +119,12 @@
     <string name="valide_username_is_empty">Nazwa uzytkownika jest pusta ! </string>
     <string name="event_created">Wydarzenie jest utworzone</string>
     <string name="event_created_problem">Wydarzenie jest utworzone</string>
+    <string name="end_date">Data końca rejestracji</string>
+    <string name="change_email">Zmień email</string>
+    <string name="change_number">Zmień numer</string>
+    <string-array name="type_change">
+       <item>Zmien dane</item>
+       <item>Zmien haslo</item>
+    </string-array>
 
 </resources>

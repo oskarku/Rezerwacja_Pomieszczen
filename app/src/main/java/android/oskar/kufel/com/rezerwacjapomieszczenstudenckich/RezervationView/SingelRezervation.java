@@ -13,6 +13,7 @@ public class SingelRezervation {
     private String numberRoomRezervation;
     private String hoursStart;
     private String hoursEnd;
+    private  String endDate="";
     private Boolean isKeyInPortier=false;
     private Integer idRezervation;
     private int picture;
@@ -83,30 +84,45 @@ public class SingelRezervation {
     }
 
     public String getHoursStart() {
+
         return hoursStart;
     }
 
     public void setHoursStart(String hoursStart) {
+
         this.hoursStart = hoursStart;
     }
 
     public String getHoursEnd() {
+
         return hoursEnd;
     }
 
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
     public void setHoursEnd(String hoursEnd) {
+
         this.hoursEnd = hoursEnd;
     }
 
     public String getDayRezervation() {
+
         return dayRezervation;
     }
 
     public void setDayRezervation(String dayRezervation) {
+
         this.dayRezervation = dayRezervation;
     }
 
     public String getMonthRezervation() {
+
         return monthRezervation;
     }
 
@@ -115,6 +131,7 @@ public class SingelRezervation {
     }
 
     public String getNumberRoomRezervation() {
+
         return numberRoomRezervation;
     }
 

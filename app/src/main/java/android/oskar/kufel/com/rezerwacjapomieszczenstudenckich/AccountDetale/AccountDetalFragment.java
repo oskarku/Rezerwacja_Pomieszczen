@@ -24,10 +24,9 @@ import android.widget.Toast;
  * A simple {@link Fragment} subclass.
  */
 public class AccountDetalFragment extends Fragment {
-    private TextView login, typeAccont, telephoneNumber, numberRoom, textViewHintGetOldPassword, textViewHintGetNewPasswort, textViewHintGetReepenNewPassword ;
-    private EditText editTextChangeNumber, editTextGetOldPassword, editTextGetNewPassword, editTextGetReepetNewPassword;
+    private TextView login, typeAccont, telephoneNumber, numberRoom, textViewEmail ;
+
     private Switch isHide, switchSetEditPassword;
-    private Button changeButton;
     private ImageView cancelImageView;
     private LayoutInflater layoutinflater;
     private View customizedUserView;
@@ -52,7 +51,8 @@ public class AccountDetalFragment extends Fragment {
         telephoneNumber = (TextView) view.findViewById(R.id.textViewPhoneNumberDetale);
         numberRoom =  (TextView) view.findViewById(R.id.textViewRoomViewDetale);
         isHide = (Switch) view.findViewById(R.id.switchHideDateDetale);
-        changeButton = (Button) view.findViewById(R.id.buttonChangeDetale);
+        textViewEmail = (TextView) view.findViewById(R.id.text_view_email_fragment_detal);
+
 
         SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences(KeepKey.KEY_NAME_SHARED, Context.MODE_PRIVATE); // 0 - for private mode
         SharedPreferences.Editor editor = pref.edit();
@@ -61,11 +61,7 @@ public class AccountDetalFragment extends Fragment {
         typeAccont.setText(pref.getString(KeepKey.KEY_TYPE_ACCOUNT, "TYP KONTA"));
         telephoneNumber.setText(pref.getString(KeepKey.KEY_PHONE_USER, "000 000 000"));
         numberRoom.setText(pref.getString(KeepKey.KEY_ROOM_USER, "ROOM"));
-
-
-
-
-
+        textViewEmail.setText(pref.getString(KeepKey.KEY_EMAIL_USER, "EMAIL"));
 
 
 
@@ -86,12 +82,14 @@ public class AccountDetalFragment extends Fragment {
 
                     telephoneNumber.setVisibility(View.INVISIBLE);
                     numberRoom.setVisibility(View.INVISIBLE);
+                    textViewEmail.setVisibility(View.INVISIBLE);
                 }
                 else if(isChecked==false) {
 
 
                     telephoneNumber.setVisibility(View.VISIBLE);
                     numberRoom.setVisibility(View.VISIBLE);
+                    textViewEmail.setVisibility(View.VISIBLE);
 
 
 
@@ -109,97 +107,6 @@ public class AccountDetalFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-
-        changeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                layoutinflater = LayoutInflater.from(getActivity());
-                customizedUserView = layoutinflater.inflate(R.layout.edit_date_alert, null);
-                editTextChangeNumber =(customizedUserView.findViewById(R.id.editTextNumberChcngeDetal));
-                switchSetEditPassword = (customizedUserView.findViewById(R.id.switchWontChangePasswordEditDialog));
-                cancelImageView = (customizedUserView.findViewById(R.id.imageViewCancelEdidAlertDialog));
-                editTextGetNewPassword = (customizedUserView.findViewById(R.id.editTextGetNewPassword));
-                editTextGetOldPassword = (customizedUserView.findViewById(R.id.editTextGetOldPassword));
-                editTextGetReepetNewPassword = (customizedUserView.findViewById(R.id.editTextRepeatNewPassword));
-                textViewHintGetNewPasswort =(customizedUserView.findViewById(R.id.textViewHintGetNewpassword));
-                textViewHintGetOldPassword = (customizedUserView.findViewById(R.id.textViewHintGetOldPassword));
-                textViewHintGetReepenNewPassword = (customizedUserView.findViewById(R.id.textViewReepatNewpasswordHint));
-
-
-                switchSetEditPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                        if(isChecked==true){
-
-
-                            Toast toast = Toast.makeText(getActivity().getApplicationContext(),getString(R.string.Un_hide_option_edit_passwort) , Toast.LENGTH_SHORT);
-                            toast.show();
-
-
-                            editTextGetNewPassword.setVisibility(View.VISIBLE);
-                            editTextGetOldPassword.setVisibility(View.VISIBLE);
-                            editTextGetReepetNewPassword.setVisibility(View.VISIBLE);
-                            textViewHintGetNewPasswort.setVisibility(View.VISIBLE);
-                            textViewHintGetOldPassword.setVisibility(View.VISIBLE);
-                            textViewHintGetReepenNewPassword.setVisibility(View.VISIBLE);
-
-                            ///TODO zrobic opcje w api do zapisywania
-
-
-
-
-                        }
-                        else if(isChecked==false) {
-
-                            editTextGetNewPassword.setVisibility(View.INVISIBLE);
-                            editTextGetOldPassword.setVisibility(View.INVISIBLE);
-                            editTextGetReepetNewPassword.setVisibility(View.INVISIBLE);
-                            textViewHintGetNewPasswort.setVisibility(View.INVISIBLE);
-                            textViewHintGetOldPassword.setVisibility(View.INVISIBLE);
-                            textViewHintGetReepenNewPassword.setVisibility(View.INVISIBLE);
-
-
-                        }
-
-                    }
-                });
-
-
-
-
-
-
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-
-                alertDialogBuilder.setView(customizedUserView);
-
-
-                alertDialog = alertDialogBuilder.create();
-                alertDialog.setCanceledOnTouchOutside(false);
-
-                alertDialog.show();
-
-                cancelImageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
-
-
-
-
-
-            }
-        });
-
-
-
-
 
     }
 

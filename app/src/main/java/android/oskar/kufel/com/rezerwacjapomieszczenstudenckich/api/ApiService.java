@@ -91,7 +91,14 @@ public interface ApiService {
     Call<String>delateMyrezerwation(@HeaderMap Map<String, String> headers, @Path("reservation_id")Integer rezervID);
 
     @DELETE("users/{id}")
-    Call<String>delateUsers(@HeaderMap Map<String, String> headers, @Path("id") Integer idUser);
+    Call<String> delateUsers(@HeaderMap Map<String, String> headers, @Path("id") Integer idUser);
+
+    @GET("users")
+    Call<List<DateMe>> listAccountTypeStudent (@HeaderMap Map<String, String> headers, @Query("type") String typeAcount);
+
+    //@PUT()
+
+
 
 
 
