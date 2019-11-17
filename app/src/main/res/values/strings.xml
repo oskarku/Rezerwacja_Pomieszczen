@@ -122,6 +122,7 @@
     <string name="end_date">Data końca rejestracji</string>
     <string name="change_email">Zmień email</string>
     <string name="change_number">Zmień numer</string>
+    <string name="wasche_machine">Pralka</string>
     <string-array name="type_change">
        <item>Zmien dane</item>
        <item>Zmien haslo</item>
